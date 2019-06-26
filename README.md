@@ -4,10 +4,9 @@ private String token;
 
 AccountInfo account;
 
-public void generate()
-{
+/* Example */
+public void generate() {
     account = new AccountInfo(YOUR_API_TOKEN);
     
-    /* Example */
     this.token = account.getToken();
 }
