@@ -39,7 +39,8 @@ public class TheAltening {
     }
 
     /** Gets info from the license initialized */
-    public LicenseInfo getLicenseInfo() {
+    public LicenseInfo getLicenseInfo() 
+    {
         if(licenseInfo == null)
         {
             System.out.println("You need to initialize the account info before getting the details.");
@@ -53,13 +54,8 @@ public class TheAltening {
      * */
     public void setAuthService(AccountService.ServiceType serviceType) throws NoSuchFieldException, IllegalAccessException 
     {
-        accountService.switchService(serviceType);
-    }
-
-    /** Verifies/bypasses the https on the altening service */
-    public void verifySSL()
-    {
         accountService.verify();
+        accountService.switchService(serviceType);
     }
 
     /** Used for getting the json string */
