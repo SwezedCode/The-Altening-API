@@ -1,6 +1,5 @@
 package thealtening;
 
-import thealtening;
 import thealtening.service.AccountService;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
