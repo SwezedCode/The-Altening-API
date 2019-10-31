@@ -1,4 +1,4 @@
-package yourpackage;
+package thealtening;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
