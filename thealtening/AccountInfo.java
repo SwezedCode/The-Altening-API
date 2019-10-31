@@ -29,39 +29,39 @@ public class AccountInfo extends TheAltening {
     }
 
     /** Generates the account */
-    public void generate()
+    public boolean generate()
     {
         Gson gson = new Gson();
         String info = receive("http://api.thealtening.com/v1/generate?token=" + apiToken + "&info=true");
 
         /* The API Token was not correct. */
-        if (info.contains("api-invalid")) 
+        if (info.contains("api-invalid"))
         {
             error = "Invalid API Token.";
-            return;
+            return false;
         }
 
         /* The account doesn't have Basic plan or any other plan purchased. */
-        if (info.contains("ForbiddenOperationException")) 
+        if (info.contains("ForbiddenOperationException"))
         {
             error = "You must have Basic rank or higher in order to use this feature.";
-            return;
+            return false;
         }
 
         JsonObject jsonObject = gson.fromJson(info, JsonObject.class);
 
         /* The json object could not fetch or find any json data. */
-        if (jsonObject == null) 
+        if (jsonObject == null)
         {
             error = "Couldn't fetch data from the api.";
-            return;
+            return false;
         }
 
         /* The account has reached the limit amount of accounts generated. */
-        if (jsonObject.get("limit").getAsBoolean() == true) 
+        if (jsonObject.get("limit").getAsBoolean() == true)
         {
             error = "You reached the limit of accounts generated today.";
-            return;
+            return false;
         }
 
         /* Sets the token, username and expiry to the received information from the API. */
@@ -73,34 +73,124 @@ public class AccountInfo extends TheAltening {
         JsonObject json = gson.fromJson(info, JsonObject.class);
 
         /* Level */
-        if (json.getAsJsonObject("info").has("hypixel.lvl")) 
+        if (json.getAsJsonObject("info").has("hypixel.lvl"))
         {
             this.hypixelLvl = json.getAsJsonObject("info").get("hypixel.lvl").toString();
         }
-        if (json.getAsJsonObject("info").has("mineplex.lvl")) 
+        if (json.getAsJsonObject("info").has("mineplex.lvl"))
         {
             this.mineplexLvl = json.getAsJsonObject("info").get("mineplex.lvl").toString();
         }
 
         /* Ranks */
-        if (json.getAsJsonObject("info").has("hypixel.rank")) 
+        if (json.getAsJsonObject("info").has("hypixel.rank"))
         {
             this.hypixelRank = json.getAsJsonObject("info").get("hypixel.rank").toString();
         }
-        if (json.getAsJsonObject("info").has("mineplex.rank")) 
+        if (json.getAsJsonObject("info").has("mineplex.rank"))
         {
             this.mineplexRank = json.getAsJsonObject("info").get("mineplex.rank").toString();
         }
 
         /* Capes */
-        if (json.getAsJsonObject("info").has("labymod.cape")) 
+        if (json.getAsJsonObject("info").has("labymod.cape"))
         {
             this.hasLabymodCape = true;
         }
-        if (json.getAsJsonObject("info").has("mineplex.rank")) 
+        if (json.getAsJsonObject("info").has("mineplex.rank"))
         {
             this.has5zigCape = true;
         }
+
+        return true;
+    }
+
+    /** Privates the specified account by the account token */
+    public boolean privateAccount()
+    {
+        Gson gson = new Gson();
+        String info = receive("http://api.thealtening.com/v1/private?token=" + apiToken + "&acctoken=" + token);
+
+        /* The API Token was not correct. */
+        if (info.contains("api-invalid"))
+        {
+            error = "Invalid API Token.";
+            return false;
+        }
+
+        if(info.contains("Token expired"))
+        {
+            error = "The account token was not found or expired.";
+            return false;
+        }
+
+        /* The account doesn't have Basic plan or any other plan purchased. */
+        if (info.contains("ForbiddenOperationException"))
+        {
+            error = "You must have Premium rank in order to use this feature.";
+            return false;
+        }
+
+        JsonObject jsonObject = gson.fromJson(info, JsonObject.class);
+
+        /* The json object could not fetch or find any json data. */
+        if (jsonObject == null)
+        {
+            error = "Couldn't fetch data from the api.";
+            return false;
+        }
+
+        if (!jsonObject.get("success").getAsBoolean() == true)
+        {
+            error = "The Altening service was unable to private the account.";
+            return false;
+        }
+
+        return true;
+    }
+
+    /** Privates the specified account by the account token */
+    public boolean favouriteAccount()
+    {
+        Gson gson = new Gson();
+        String info = receive("http://api.thealtening.com/v1/favorite?token=" + apiToken + "&acctoken=" + token);
+
+        /* The API Token was not correct. */
+        if (info.contains("api-invalid"))
+        {
+            error = "Invalid API Token.";
+            return false;
+        }
+
+        if(info.contains("Token expired"))
+        {
+            error = "The account token was not found or expired.";
+            return false;
+        }
+
+        /* The account doesn't have Basic plan or any other plan purchased. */
+        if (info.contains("ForbiddenOperationException"))
+        {
+            error = "You must have Premium rank in order to use this feature.";
+            return false;
+        }
+
+        JsonObject jsonObject = gson.fromJson(info, JsonObject.class);
+
+        /* The json object could not fetch or find any json data. */
+        if (jsonObject == null)
+        {
+            error = "Couldn't fetch data from the api.";
+            return false;
+        }
+
+        if (!jsonObject.get("success").getAsBoolean() == true)
+        {
+            error = "The Altening service was unable to favourite the account.";
+            return false;
+        }
+
+        return true;
     }
 
     public String getError() 
