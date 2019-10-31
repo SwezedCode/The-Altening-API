@@ -14,7 +14,10 @@ public class LicenseInfo extends TheAltening {
 
     private String error;
 
-    public LicenseInfo(String apiToken) { this.apiToken = apiToken; }
+    public LicenseInfo(String apiToken) 
+    { 
+        this.apiToken = apiToken; 
+    }
 
     /* Initializes to get the details */
     public void initialize()
@@ -23,7 +26,8 @@ public class LicenseInfo extends TheAltening {
         String info = receive("http://api.thealtening.com/v1/license?token=" + apiToken);
 
         /* The API Token was not correct. */
-        if (info.contains("api-invalid")) {
+        if (info.contains("api-invalid")) 
+        {
             error = "Invalid API Token.";
             return;
         }
@@ -31,7 +35,8 @@ public class LicenseInfo extends TheAltening {
         JsonObject jsonObject = gson.fromJson(info, JsonObject.class);
 
         /* The json object could not fetch or find any json data. */
-        if (jsonObject == null) {
+        if (jsonObject == null) 
+        {
             error = "Couldn't fetch data from the api.";
             return;
         }
@@ -43,23 +48,28 @@ public class LicenseInfo extends TheAltening {
         this.expiry = jsonObject.get("expires").getAsString();
     }
 
-    public String getError() { 
+    public String getError() 
+    { 
         return error; 
     }
 
-    public String getUsername() { 
+    public String getUsername() 
+    { 
         return username; 
     }
 
-    public boolean isPremium() { 
+    public boolean isPremium() 
+    { 
         return premium; 
     }
 
-    public String getPlan() { 
+    public String getPlan() 
+    { 
         return plan; 
     }
 
-    public String getExpiry() { 
+    public String getExpiry() 
+    { 
         return expiry; 
     }
 
