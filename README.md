@@ -1,13 +1,11 @@
 In order to generate a new account you do the following steps:
+```
+TheAltening theAltening = new TheAltening();
+theAltening.generateAccount("TOKEN");
+```
 
-private String token;
-
-AccountInfo account;
-
-
-public void generate() {
-    
-    account = new AccountInfo(YOUR_API_TOKEN);
-    
-    this.token = account.getToken();
-}
+In order to generate license info:
+```
+TheAltening theAltening = new TheAltening();
+theAltening.initializeLicenseInfo("TOKEN");
+```
