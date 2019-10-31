@@ -14,14 +14,50 @@ public class TheAltening {
     private AccountService accountService = new AccountService();
 
     /** Generates an account with the api token */
-    public void generateAccount(String apiToken)
+    public boolean generateAccount(String apiToken)
     {
         accountInfo = new AccountInfo(apiToken);
-        accountInfo.generate();
+        return accountInfo.generate();
+    }
+
+    /** Privates the latest generated account */
+    public boolean privateCurrentAccount()
+    {
+        if(accountInfo == null)
+        {
+            System.out.println("You need to generate an account before getting the details.");
+            return false;
+        }
+        return accountInfo.privateAccount();
+    }
+
+    /** Favourites the latest generated account */
+    public boolean favouriteCurrentAccount()
+    {
+        if(accountInfo == null)
+        {
+            System.out.println("You need to generate an account before getting the details.");
+            return false;
+        }
+        return accountInfo.favouriteAccount();
+    }
+
+    /** Privates the latest generated account */
+    public boolean privateAccount(String apiToken, String accountToken)
+    {
+        accountUtils = new AccountUtils(apiToken);
+        return accountUtils.privateAccount(accountToken, apiToken);
+    }
+
+    /** Favourites the latest generated account */
+    public boolean favouriteAccount(String apiToken, String accountToken)
+    {
+        accountUtils = new AccountUtils(apiToken);
+        return accountUtils.favouriteAccount(accountToken, apiToken);
     }
 
     /** Gets the info from the account generated */
-    public AccountInfo getAccount() 
+    public AccountInfo getAccount()
     {
         if(accountInfo == null)
         {
@@ -32,14 +68,14 @@ public class TheAltening {
     }
 
     /** Initializes the information needed for the license info */
-    public void initializeLicenseInfo(String apiToken)
+    public boolean initializeLicenseInfo(String apiToken)
     {
         licenseInfo = new LicenseInfo(apiToken);
-        licenseInfo.initialize();
+        return licenseInfo.initialize();
     }
 
     /** Gets info from the license initialized */
-    public LicenseInfo getLicenseInfo() 
+    public LicenseInfo getLicenseInfo()
     {
         if(licenseInfo == null)
         {
