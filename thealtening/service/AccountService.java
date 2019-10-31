@@ -42,9 +42,11 @@ public class AccountService extends SSL {
 
         userAuthenticationModifies.forEach((key, value) -> 
         {
-            try {
+            try 
+            {
                 userAuthentication.setStaticField(key, value);
-            } catch (Exception e) {
+            } catch (Exception e) 
+            {
                 e.printStackTrace();
             }
         });
