@@ -22,7 +22,8 @@ public class TheAltening {
     }
 
     /** Gets the info from the account generated */
-    public AccountInfo getAccount() {
+    public AccountInfo getAccount() 
+    {
         if(accountInfo == null)
         {
             System.out.println("You need to generate an account before getting the details.");
@@ -51,7 +52,8 @@ public class TheAltening {
     /** Switches the authentication service to x service type
      *  Default: MOJANG
      * */
-    public void setAuthService(AccountService.ServiceType serviceType) throws NoSuchFieldException, IllegalAccessException {
+    public void setAuthService(AccountService.ServiceType serviceType) throws NoSuchFieldException, IllegalAccessException 
+    {
         accountService.switchService(serviceType);
     }
 
@@ -68,7 +70,8 @@ public class TheAltening {
         {
             HttpGet httpGet = new HttpGet(URL);
             return EntityUtils.toString(HttpClients.createDefault().execute(httpGet).getEntity());
-        }catch(IOException e) {
+        }catch(IOException e) 
+        {
             System.out.println("Error requesting string from " + URL);
         }
         return "";
