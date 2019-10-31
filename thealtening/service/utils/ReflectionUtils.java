@@ -1,4 +1,4 @@
-package com.teaclient.tea.api.thealtening.service.utils;
+package thealtening.service.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
