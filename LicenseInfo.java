@@ -43,14 +43,24 @@ public class LicenseInfo extends TheAltening {
         this.expiry = jsonObject.get("expires").getAsString();
     }
 
-    public String getError() { return error; }
+    public String getError() { 
+        return error; 
+    }
 
-    public String getUsername() { return username; }
+    public String getUsername() { 
+        return username; 
+    }
 
-    public boolean isPremium() { return premium; }
+    public boolean isPremium() { 
+        return premium; 
+    }
 
-    public String getPlan() { return plan; }
+    public String getPlan() { 
+        return plan; 
+    }
 
-    public String getExpiry() { return expiry; }
+    public String getExpiry() { 
+        return expiry; 
+    }
 
 }
